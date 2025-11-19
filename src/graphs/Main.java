@@ -1,8 +1,9 @@
 package graphs;
-
 public class Main {
     public static void main(String[] args) {
 
+
+        //code below just to test if classes work - to be deleted later
         Node a = new Node("A");
         Node b = new Node("B");
 
