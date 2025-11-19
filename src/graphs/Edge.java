@@ -1,4 +1,4 @@
-package graphs
+package graphs;
 
 public class Edge {
     private final Node from;
