@@ -1,28 +1,35 @@
 package graphs;
+
 public class Main {
     public static void main(String[] args) {
 
+        //this code just showcase the usage of Graph, Node, Edges classes
+        //can be modified or deleted
+        Graph graph = new Graph();
 
-        //code below just to test if classes work - to be deleted later
         Node a = new Node("A");
         Node b = new Node("B");
+        Node c = new Node("C");
+        Node d = new Node("D");
 
-        Edge e1 = new Edge(a, b, 5.0);
+        graph.addNode(a);
+        graph.addNode(b);
+        graph.addNode(c);
+        graph.addNode(d);
 
-        a.addEdge(e1);
+        graph.addEdgeToGraph(new Edge(a, b));
+        graph.addEdgeToGraph(new Edge(a, c));
+        graph.addEdgeToGraph(new Edge(b, d));
+        graph.addEdgeToGraph(new Edge(c, d));
+        graph.addEdgeToGraph(new Edge(d, a));
 
-        System.out.println("Created nodes:");
-        System.out.println("Node A id: " + a.getId());
-        System.out.println("Node B id: " + b.getId());
-
-        System.out.println("\nEdges from A:");
-        for (Edge e : a.getEdges()) {
-            System.out.println(e);
+        System.out.println("Graph structure:");
+        for (Node node : graph.getNodes()) {
+            System.out.print(node + " -> ");
+            for (Edge e : node.getEdges()) {
+                System.out.print(e.getTo() + " ");
+            }
+            System.out.println();
         }
-
-        System.out.println("\nEdge info:");
-        System.out.println("From: " + e1.getFrom());
-        System.out.println("To: " + e1.getTo());
-        System.out.println("Weight: " + e1.getWeight());
     }
 }
