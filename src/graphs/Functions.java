@@ -37,9 +37,6 @@ public class Functions {
         return g;
     }
 
-    //TODO: Create a function printing the Graph - ideally one function for both weighted and unweighted
-    //TODO: Create a function for BFS algorithm
-
 
 }
 

@@ -3,33 +3,15 @@ package graphs;
 public class Main {
     public static void main(String[] args) {
 
-        //this code just showcase the usage of Graph, Node, Edges classes
+        //this code just showcase the usage of implemented classes and methods
         //can be modified or deleted
-        Graph graph = new Graph();
+        Graph graph = Functions.createUnweightedGraph(6);
 
-        Node a = new Node("A");
-        Node b = new Node("B");
-        Node c = new Node("C");
-        Node d = new Node("D");
+        graph.printGraph(false);
 
-        graph.addNode(a);
-        graph.addNode(b);
-        graph.addNode(c);
-        graph.addNode(d);
+        Node start = graph.getNodes().getFirst();
+        Node goal = graph.getNodes().get(5);
 
-        graph.addEdgeToGraph(new Edge(a, b));
-        graph.addEdgeToGraph(new Edge(a, c));
-        graph.addEdgeToGraph(new Edge(b, d));
-        graph.addEdgeToGraph(new Edge(c, d));
-        graph.addEdgeToGraph(new Edge(d, a));
-
-        System.out.println("Graph structure:");
-        for (Node node : graph.getNodes()) {
-            System.out.print(node + " -> ");
-            for (Edge e : node.getEdges()) {
-                System.out.print(e.getTo() + " ");
-            }
-            System.out.println();
-        }
+        graph.BFSShortestPath(start, goal);
     }
 }
