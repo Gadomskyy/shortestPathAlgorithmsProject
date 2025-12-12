@@ -9,9 +9,15 @@ public class Main {
 
         graph.printGraph(false);
 
-        Node start = graph.getNodes().getFirst();
+        //Node start = graph.getNodes().getFirst();
         Node goal = graph.getNodes().get(5);
 
-        graph.BFSShortestPath(start, goal);
+        //graph.BFSShortestPath(start, goal);
+
+        Node start2 = graph.getNodes().get(0);
+        Node goal2 = graph.getNodes().get(5);
+
+        System.out.println("\n=== DIJKSTRA ===");
+        graph.dijkstraShortestPath(start2,goal2);
     }
 }

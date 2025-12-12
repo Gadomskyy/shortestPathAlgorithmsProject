@@ -83,5 +83,54 @@ public class Graph {
         System.out.println("No path exists between " + start + " and " + goal);
         return null;
     }
+    public List<Node> dijkstraShortestPath(Node start, Node goal) {
+
+        Map<Node, Double> distances = new HashMap<>();
+        Map<Node, Node> previous = new HashMap<>();
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
+
+        for (Node node : nodes) {
+            distances.put(node, Double.POSITIVE_INFINITY);
+            previous.put(node, null);
+        }
+
+        distances.put(start, 0.0);
+        pq.add(start);
+
+        while (!pq.isEmpty()) {
+            Node current = pq.poll();
+
+            if (current.equals(goal)) {
+                List<Node> path = new ArrayList<>();
+                for (Node n = goal; n != null; n = previous.get(n)) {
+                    path.add(n);
+                }
+                Collections.reverse(path);
+
+                System.out.print("Dijkstra path: ");
+                for (int i = 0; i < path.size(); i++) {
+                    System.out.print(path.get(i));
+                    if (i < path.size() - 1) System.out.print(" -> ");
+                }
+                System.out.println();
+
+                return path;
+            }
+
+            for (Edge edge : current.getEdges()) {
+                Node neighbor = edge.getTo();
+                double newDist = distances.get(current) + edge.getWeight();
+
+                if (newDist < distances.get(neighbor)) {
+                    distances.put(neighbor, newDist);
+                    previous.put(neighbor, current);
+                    pq.add(neighbor);
+                }
+            }
+        }
+
+        System.out.println("No path found using Dijkstra");
+        return null;
+    }
 
 }
