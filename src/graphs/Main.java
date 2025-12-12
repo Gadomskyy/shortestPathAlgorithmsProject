@@ -17,7 +17,7 @@ public class Main {
         Node start2 = graph.getNodes().get(0);
         Node goal2 = graph.getNodes().get(5);
 
-        System.out.println("\n=== DIJKSTRA ===");
+        //System.out.println("\n=== DIJKSTRA ===");
         graph.dijkstraShortestPath(start2,goal2);
     }
 }

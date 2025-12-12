@@ -89,6 +89,7 @@ public class Graph {
         Map<Node, Node> previous = new HashMap<>();
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
 
+
         for (Node node : nodes) {
             distances.put(node, Double.POSITIVE_INFINITY);
             previous.put(node, null);
