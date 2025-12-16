@@ -1,5 +1,7 @@
 package graphs;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -20,5 +22,27 @@ public class Main {
 
         System.out.println("\n=== DIJKSTRA ===");
         graph2.dijkstraShortestPath(start2,goal2);
+
+        System.out.println("\n=== A* GRID ===");
+
+        GridGraph grid = new GridGraph(10, 10);
+
+        // losowe przeszkody (np. 25%)
+        grid.generateRandomObstacles(0.25);
+
+        GridNode start3 = new GridNode(0, 0);
+        GridNode goal3 = new GridNode(9, 9);
+
+        List<GridNode> path = grid.aStar(start3, goal3);
+
+        if (path != null) {
+            System.out.println("Path found:");
+            for (GridNode n : path) {
+                System.out.print(n + " ");
+            }
+        } else {
+            System.out.println("No path found");
+        }
+
     }
 }
