@@ -2,33 +2,35 @@ package graphs;
 
 import java.util.*;
 
-
-//TODO: is the class name correct or should it be changed?
 public class Functions {
 
-    // Creates a random unweighted, undirected graph with number of nodes as requested in parameter
-    // Each pair of nodes has a 50% chance to be connected
-    // Node can't have an edge with itself
+    public static Graph createGraph(int number, boolean weighted, int maxWeight, int width, int height) {
 
-    public static Graph createGraph(int number, boolean weighted, int maxWeight) {
         Graph g = new Graph();
 
-        // Tworzenie węzłów
+        Random random = new Random();
+
+        int margin = 120; // margines zeby wezly nie byly za blisko siebie
+
+        //tworzenie wezlow z losowymi wspolrzednymi
         for (int i = 0; i < number; i++) {
-            g.addNode(new Node("N" + i));
+            double x = margin + random.nextDouble() * (width - 2 * margin);
+            double y = margin + random.nextDouble() * (height - 2 * margin);
+
+            g.addNode(new Node("N" + i, x, y));
         }
 
-        Random r = new Random();
         List<Node> nodes = g.getNodes();
 
+        //losowe krawedzie
         for (int i = 0; i < nodes.size(); i++) {
             for (int j = i + 1; j < nodes.size(); j++) {
-                if (r.nextBoolean()) {
+                if (random.nextBoolean()) {
                     Node a = nodes.get(i);
                     Node b = nodes.get(j);
 
                     if (weighted) {
-                        int weight = 1 + r.nextInt(maxWeight);
+                        int weight = 1 + random.nextInt(maxWeight);
                         g.addEdgeToGraph(new Edge(a, b, weight));
                         g.addEdgeToGraph(new Edge(b, a, weight));
                     } else {
@@ -43,15 +45,11 @@ public class Functions {
     }
 
 
-    public static Graph createUnweightedGraph(int number) {
-        return createGraph(number, false, 0);
+    public static Graph createUnweightedGraph(int number, int width, int height) {
+        return createGraph(number, false, 0, width, height);
     }
 
-    public static Graph createWeightedGraph(int number, int maxWeight) {
-        return createGraph(number, true, maxWeight);
+    public static Graph createWeightedGraph(int number, int maxWeight, int width, int height) {
+        return createGraph(number, true, maxWeight, width, height);
     }
-
 }
-
-
-
