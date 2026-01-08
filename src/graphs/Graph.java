@@ -74,10 +74,13 @@ public class Graph {
     }
 
 
-    public List<Node> BFSShortestPath(Node start, Node goal) {
+    public BFSResult BFSShortestPathWithTrace(Node start, Node goal) {
         Queue<Node> queue = new LinkedList<>();
         Set<Node> visited = new HashSet<>();
         Map<Node, Node> previous = new HashMap<>();
+
+        //kolejnosc odwiedzin
+        List<Node> visitOrder = new ArrayList<>();
 
         queue.add(start);
         visited.add(start);
@@ -85,6 +88,10 @@ public class Graph {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
+
+            //BFS tu byl
+            visitOrder.add(current);
+
             if (current.equals(goal)) break;
 
             for (Edge edge : current.getEdges()) {
@@ -98,9 +105,9 @@ public class Graph {
         }
 
         List<Node> path = buildPath(previous, start, goal);
-        printPath(path, "BFS", null);
-        return path;
+        return new BFSResult(visitOrder, path);
     }
+
 
     public List<Node> dijkstraShortestPath(Node start, Node goal) {
         Map<Node, Double> distances = new HashMap<>();
