@@ -42,6 +42,23 @@ public class Main {
         System.out.println("\n=== DIJKSTRA ===");
         graph2.dijkstraShortestPath(start2, goal2);
 
+        List<Node> dijkstraPath = graph2.dijkstraShortestPath(start2, goal2);
+
+        String dijkstraSvg = visualizer.dijkstraToSVG(
+                graph2,
+                dijkstraPath,
+                WIDTH,
+                HEIGHT
+        );
+
+        // zapis do pliku
+        try (FileWriter writer = new FileWriter("dijkstra_graph.svg")) {
+            writer.write(dijkstraSvg);
+            System.out.println("SVG saved as dijkstra_graph.svg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("\n=== A* GRID ===");
 
         GridGraph grid = new GridGraph(10, 10);
