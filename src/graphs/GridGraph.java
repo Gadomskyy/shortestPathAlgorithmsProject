@@ -132,7 +132,9 @@ public class GridGraph {
        A* SEARCH
        ======================= */
 
-    public List<GridNode> aStar(GridNode start, GridNode goal) {
+    public AStarResult aStar(GridNode start, GridNode goal) {
+
+        List<GridNode> visitOrder = new ArrayList<>();
 
         Map<GridNode, Double> gScore = new HashMap<>();
         Map<GridNode, GridNode> cameFrom = new HashMap<>();
@@ -148,9 +150,14 @@ public class GridGraph {
 
         while (!openSet.isEmpty()) {
             GridNode current = openSet.poll();
+            visitOrder.add(current);
 
             if (current.equals(goal)) {
-                return reconstructPath(cameFrom, current);
+                return new AStarResult(
+                        visitOrder,
+                        reconstructPath(cameFrom, current)
+                );
+
             }
 
             for (GridNode neighbor : getNeighbors(current)) {
@@ -167,8 +174,77 @@ public class GridGraph {
                 }
             }
         }
-
-        return null; // brak ścieżki
+        return new AStarResult(visitOrder, new ArrayList<>());
     }
+
+    public AStarResult aStarWithTrace(GridNode start, GridNode goal) {
+
+        Map<GridNode, Double> gScore = new HashMap<>();
+        Map<GridNode, GridNode> cameFrom = new HashMap<>();
+
+        // kolejność odwiedzania węzłów (do wizualizacji)
+        List<GridNode> visitedOrder = new ArrayList<>();
+
+        PriorityQueue<GridNode> openSet = new PriorityQueue<>(
+                Comparator.comparingDouble(n ->
+                        gScore.getOrDefault(n, Double.POSITIVE_INFINITY)
+                                + heuristic(n, goal))
+        );
+
+        gScore.put(start, 0.0);
+        openSet.add(start);
+
+        while (!openSet.isEmpty()) {
+            GridNode current = openSet.poll();
+
+            // zapamiętujemy kolejność odwiedzin
+            visitedOrder.add(current);
+
+            if (current.equals(goal)) {
+                List<GridNode> path = reconstructPath(cameFrom, current);
+                return new AStarResult(visitedOrder, path);
+            }
+
+            for (GridNode neighbor : getNeighbors(current)) {
+
+                double tentativeG =
+                        gScore.get(current) + cost(current, neighbor);
+
+                if (tentativeG < gScore.getOrDefault(neighbor, Double.POSITIVE_INFINITY)) {
+
+                    cameFrom.put(neighbor, current);
+                    gScore.put(neighbor, tentativeG);
+
+                    if (!openSet.contains(neighbor)) {
+                        openSet.add(neighbor);
+                    }
+                }
+            }
+        }
+
+        // brak ścieżki
+        return new AStarResult(visitedOrder, null);
+    }
+
+        /* =======================
+       GETTERY (DO WIZUALIZACJI)
+       ======================= */
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public boolean isBlocked(int x, int y) {
+        return blocked[y][x];
+    }
+
+    public int getWeight(int x, int y) {
+        return weights[y][x];
+    }
+
 }
 

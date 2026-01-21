@@ -61,21 +61,43 @@ public class Main {
 
         System.out.println("\n=== A* GRID ===");
 
-        GridGraph grid = new GridGraph(10, 10);
-        grid.generateRandomObstacles(0.25);
+        int GRID_WIDTH = 20;
+        int GRID_HEIGHT = 15;
+
+        GridGraph grid = new GridGraph(GRID_WIDTH, GRID_HEIGHT);
+        grid.generateRandomObstacles(0.2); // 20% przeszkód
 
         GridNode start3 = new GridNode(0, 0);
-        GridNode goal3 = new GridNode(9, 9);
+        GridNode goal3 = new GridNode(GRID_WIDTH - 1, GRID_HEIGHT - 1);
 
-        List<GridNode> path = grid.aStar(start3, goal3);
+        AStarResult aStarResult = grid.aStarWithTrace(start3, goal3);
 
-        if (path != null) {
+        List<GridNode> path = aStarResult.getPath();
+
+        if (!path.isEmpty()) {
             System.out.println("Path found:");
             for (GridNode n : path) {
                 System.out.print(n + " ");
             }
         } else {
             System.out.println("No path found");
+        }
+
+        // generowanie SVG
+        GridVisualizer visualizerAStar = new GridVisualizer();
+        String svgAStar = visualizerAStar.AStarToSVG(
+                grid,
+                aStarResult,
+                800,
+                600
+        );
+
+        // zapis do pliku
+        try (FileWriter writer = new FileWriter("astar_grid.svg")) {
+            writer.write(svgAStar);
+            System.out.println("SVG saved as astar_grid.svg");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
