@@ -1,7 +1,7 @@
 # Documentation
 
 
-## 1. Graph Class
+# 1. Graph Class
 The `Graph` class provides an object-oriented implementation of a directed and undirected graph with weighted edges.  
 It supports:
 
@@ -142,7 +142,7 @@ Constraints:
 
 - All edge weights must be non-negative.
 
-## 2. Edge Class
+# 2. Edge Class
 
 Represents a directed edge between two nodes, optionally with a weight.  
 An edge connects a source node (`from`) to a target node (`to`).
@@ -180,7 +180,7 @@ Use this constructor for weighted graphs.
 
 ---
 
-### Accessors
+### Getters
 
 #### getFrom
 ```
@@ -236,7 +236,7 @@ A -> B (2.5)
 - Weight is always defined (default is `1.0` for unweighted graphs).
 
 
-## 3. Node class
+# 3. Node class
 
 Represents a vertex in a graph.  
 A node is identified by a unique string `id` and maintains a list of outgoing edges.  
@@ -276,7 +276,7 @@ Use this constructor when node layout or visualization is required.
 
 ---
 
-### Accessors
+### Getters
 
 #### getId
 ```
@@ -317,7 +317,7 @@ Returns the y-coordinate of the node.
 
 ---
 
-### Mutators
+### Setters
 
 #### addEdge
 ```
@@ -356,4 +356,110 @@ Returns the string representation of the node.
 
 - By default, returns the node `id`.
 
+
+# 4. Functions class
+
+Utility class providing methods for generating random graphs.  
+Supports creation of weighted and unweighted graphs with randomly positioned nodes and randomly generated edges.
+
+---
+
+### Methods
+
+#### createGraph
+```
+public static Graph createGraph(int number, boolean weighted, int maxWeight, int width, int height)
+```
+
+Creates a random graph with the specified parameters.
+
+Parameters:
+
+- `number` (`int`)  
+  Number of nodes to generate.
+
+- `weighted` (`boolean`)  
+  Determines whether the graph is weighted:
+  - `true`  – create weighted edges
+  - `false` – create unweighted edges
+
+- `maxWeight` (`int`)  
+  Maximum possible edge weight (used only if `weighted == true`).  
+  Actual weights are generated in the range `[1, maxWeight]`.
+
+- `width` (`int`)  
+  Width of the drawing area.
+
+- `height` (`int`)  
+  Height of the drawing area.
+
+Behavior:
+
+- Creates specified number of nodes with random 2D coordinates.
+- Ensures nodes are placed inside the area with a fixed margin.
+- For each pair of nodes `(i, j)`:
+  - With 50% probability, creates an edge between them.
+  - If `weighted == true`, assigns a random weight.
+  - Adds edges in both directions, creating an undirected graph.
+
+Returns:
+
+- `Graph` – the generated random graph.
+
+---
+
+#### createUnweightedGraph
+```
+public static Graph createUnweightedGraph(int number, int width, int height)
+```
+
+Creates a random **unweighted** graph.
+
+Parameters:
+
+- `number` (`int`) – number of nodes
+- `width` (`int`)  – drawing area width
+- `height` (`int`) – drawing area height
+
+Behavior:
+
+- Calls `createGraph` with `weighted = false`.
+- All edges have the default weight `1.0`.
+
+Returns:
+
+- `Graph` – the generated unweighted graph.
+
+---
+
+#### createWeightedGraph
+```
+public static Graph createWeightedGraph(int number, int maxWeight, int width, int height)
+```
+
+Creates a random **weighted** graph.
+
+Parameters:
+
+- `number` (`int`) – number of nodes
+- `maxWeight` (`int`) – maximum edge weight
+- `width` (`int`) – drawing area width
+- `height` (`int`) – drawing area height
+
+Behavior:
+
+- Calls `createGraph` with `weighted = true`.
+- Edge weights are generated in the range `[1, maxWeight]`.
+
+Returns:
+
+- `Graph` – the generated weighted graph.
+
+---
+
+### Notes
+
+- Generated graphs are undirected (edges are added in both directions).
+- Node positions are generated with a fixed margin to avoid clustering near borders.
+- Edge existence is randomized using a 50% probability for each node pair.
 
