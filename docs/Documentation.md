@@ -557,3 +557,207 @@ Returns a readable string representation of the node in the format:
 Useful for debugging, logging, and formatted output in pathfinding results.
 
 ---
+
+# 6. GridGraph Class
+
+The `GridGraph` class represents a 2D grid-based graph commonly used in pathfinding problems.  
+Each cell in the grid corresponds to a `GridNode` and may have an associated movement cost or be blocked (an obstacle).
+
+It provides a complete environment for grid-based pathfinding using the A* algorithm with Manhattan heuristic.
+
+It supports:
+
+- Grid initialization with configurable width and height
+- Random generation of terrain weights
+- Random and manual placement of obstacles
+- Neighbor retrieval with 4-directional movement
+- Cost-based movement between grid cells
+- A* pathfinding with optional visit tracing
+- Utilities for visualization and debugging
+
+---
+
+### Class Signature
+
+```
+public class GridGraph
+```
+
+### Fields
+```
+private final int width;
+private final int height;
+private final boolean[][] blocked;
+private final int[][] weights;
+private final Random random;
+```
+
+- `width`, `height` – grid dimensions
+- `blocked` – marks cells that cannot be traversed
+- `weights` – movement cost for entering each cell
+- `random` – used for random generation of weights and obstacles
+
+### Constructors
+```
+public GridGraph(int width, int height)
+```
+
+Creates a grid graph with the given dimensions.
+
+- Initializes random weights in range `[1, 5]`
+- No obstacles are set by default
+
+Parameters:
+
+- `width` – number of columns
+- `height` – number of rows
+
+---
+
+## Grid Generation
+
+### generateRandomObstacles
+```
+public void generateRandomObstacles(double probability)
+```
+
+Randomly marks grid cells as blocked.
+
+- `probability` – chance (0.0–1.0) that a cell becomes an obstacle
+
+### setBlocked
+```
+public void setBlocked(int x, int y, boolean value)
+```
+
+Manually sets or clears an obstacle at a given position.
+
+- Safe bounds checking is applied
+
+---
+
+## Neighbor Access
+
+### getNeighbors
+```
+public List<GridNode> getNeighbors(GridNode node)
+```
+
+Returns all valid neighboring nodes using **4-directional movement**:
+
+- Right
+- Left
+- Down
+- Up
+
+Rules:
+
+- Neighbor must be inside grid bounds
+- Neighbor must not be blocked
+
+---
+
+## Heuristic Function
+
+### heuristic (Manhattan Distance)
+```
+private double heuristic(GridNode a, GridNode b)
+```
+
+Computes Manhattan distance:
+
+```
+|x1 - x2| + |y1 - y2|
+```
+
+Used by the A* algorithm to guide search efficiently.
+
+---
+
+## Movement Cost
+
+### cost
+```
+private double cost(GridNode from, GridNode to)
+```
+
+Returns the cost of entering the destination cell.
+
+- Based on `weights[y][x]`
+- Allows terrain-based pathfinding
+
+---
+
+## Path Utilities
+
+### reconstructPath
+```
+private List<GridNode> reconstructPath(
+    Map<GridNode, GridNode> cameFrom,
+    GridNode current
+)
+```
+
+Reconstructs the path from start to goal using a predecessor map.
+
+- Returns ordered list of `GridNode`
+- Used internally by A*
+
+---
+
+## A* Pathfinding
+
+### aStar
+```
+public AStarResult aStar(GridNode start, GridNode goal)
+```
+
+Executes the A* search algorithm.
+
+Returns:
+
+- Order of visited nodes
+- Shortest path from start to goal
+
+If no path exists, returns an empty path.
+
+### aStarWithTrace
+```
+public AStarResult aStarWithTrace(GridNode start, GridNode goal)
+```
+
+Extended version of A* that records full visitation order.
+
+Returns:
+
+- Visited node sequence (for visualization)
+- Reconstructed shortest path
+- Returns `null` path if no solution exists
+
+---
+
+## Visualization Utilities
+
+### getWidth / getHeight
+```
+public int getWidth()
+public int getHeight()
+```
+
+Return grid dimensions.
+
+### isBlocked
+```
+public boolean isBlocked(int x, int y)
+```
+
+Checks whether a given cell is an obstacle.
+
+### getWeight
+```
+public int getWeight(int x, int y)
+```
+
+Returns movement cost of a given cell.
+
+---
