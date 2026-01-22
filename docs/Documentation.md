@@ -897,3 +897,94 @@ Returns the reconstructed optimal path.
 - Returns `null` if the goal was unreachable
 
 ---
+# 9. GraphVisualizer Class
+
+The `GraphVisualizer` class provides SVG-based visualizations for graph traversal and shortest-path algorithms executed on a `Graph`.
+
+It converts algorithm results into scalable vector graphics (SVG), enabling easy rendering in browsers, reports, or GUI components.
+
+It supports:
+
+- Visualization of Breadth-First Search (BFS)
+- Visualization of Dijkstra’s shortest path
+- Highlighting visited nodes and final paths
+- Optional display of edge weights
+- Custom SVG canvas size
+
+---
+
+### Class Signature
+
+```
+public class GraphVisualizer
+```
+
+---
+
+## BFS Visualization
+
+### BFStoSVG
+```
+public String BFStoSVG(
+    Graph graph,
+    BFSResult bfsResult,
+    int width,
+    int height
+)
+```
+
+Generates an SVG visualization of a BFS traversal.
+
+Visualization rules:
+
+- **Visited nodes** are highlighted in blue
+- **Path edges** are highlighted in red
+- **Non-path edges** are drawn in gray
+- Nodes are rendered as circles with labels
+
+Parameters:
+
+- `graph` – graph structure
+- `bfsResult` – BFS traversal result
+- `width`, `height` – SVG canvas dimensions
+
+Returns:
+
+- SVG markup as a `String`
+
+---
+
+## Dijkstra Visualization
+
+### dijkstraToSVG
+```
+public String dijkstraToSVG(
+    Graph graph,
+    List<Node> path,
+    int width,
+    int height
+)
+```
+
+Generates an SVG visualization of Dijkstra’s shortest path result.
+
+Visualization rules:
+
+- **Path nodes** are highlighted in green
+- **Path edges** are highlighted in red
+- **Edge weights** are displayed along edges
+- Non-path elements are drawn in neutral colors
+
+Parameters:
+
+- `graph` – graph structure
+- `path` – shortest path produced by Dijkstra
+- `width`, `height` – SVG canvas dimensions
+
+Returns:
+
+- SVG markup as a `String`
+
+---
+
+This class focuses purely on visualization and does not implement graph algorithms itself.
