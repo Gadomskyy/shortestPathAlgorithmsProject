@@ -761,3 +761,139 @@ public int getWeight(int x, int y)
 Returns movement cost of a given cell.
 
 ---
+# 7. BFSResult Class
+
+The `BFSResult` class is a simple data container used to store the results of a **Breadth-First Search (BFS)** traversal or shortest-path computation.
+
+It encapsulates both the order in which nodes were visited and the final reconstructed path (if one exists).
+
+It supports:
+
+- Storage of BFS visit order
+- Storage of reconstructed shortest path
+- Clean separation of algorithm logic and results
+- Easy access for visualization or debugging
+
+---
+
+### Class Signature
+
+```
+public class BFSResult
+```
+
+### Fields
+```
+private final List<Node> visitOrder;
+private final List<Node> path;
+```
+
+- `visitOrder` – nodes in the order they were visited during BFS
+- `path` – reconstructed shortest path from start to goal
+- Fields are immutable once the object is created
+
+### Constructors
+```
+public BFSResult(List<Node> visitOrder, List<Node> path)
+```
+
+Creates a result object containing BFS traversal data.
+
+Parameters:
+
+- `visitOrder` – list of nodes in visitation order
+- `path` – shortest path from start to goal (may be `null` or empty)
+
+### Accessors
+
+#### getVisitOrder
+```
+public List<Node> getVisitOrder()
+```
+
+Returns the list of nodes visited during BFS.
+
+Useful for:
+
+- Algorithm tracing
+- Visualization
+- Debugging traversal behavior
+
+#### getPath
+```
+public List<Node> getPath()
+```
+
+Returns the reconstructed shortest path.
+
+- If no path exists, this may be `null` or empty depending on usage context
+
+---
+# 8. AStarResult Class
+
+The `AStarResult` class is a result container for the A* pathfinding algorithm executed on a grid-based graph.
+
+It stores both the visitation order of nodes and the final path from start to goal, making it suitable for visualization and analysis of the algorithm’s behavior.
+
+It supports:
+
+- Storage of A* visit order
+- Storage of reconstructed optimal path
+- Clean result abstraction for pathfinding algorithms
+- Easy integration with grid visualizers
+
+---
+
+### Class Signature
+
+```
+public class AStarResult
+```
+
+### Fields
+```
+private final List<GridNode> visitOrder;
+private final List<GridNode> path;
+```
+
+- `visitOrder` – grid nodes visited during the A* search
+- `path` – optimal path from start to goal
+- Fields are immutable
+
+### Constructors
+```
+public AStarResult(List<GridNode> visitOrder, List<GridNode> path)
+```
+
+Creates an object representing the outcome of an A* search.
+
+Parameters:
+
+- `visitOrder` – nodes visited in order of exploration
+- `path` – reconstructed shortest path (may be `null` if no path exists)
+
+### Accessors
+
+#### getVisitOrder
+```
+public List<GridNode> getVisitOrder()
+```
+
+Returns the sequence of nodes explored by the algorithm.
+
+Useful for:
+
+- Step-by-step visualization
+- Performance analysis
+- Educational demonstrations
+
+#### getPath
+```
+public List<GridNode> getPath()
+```
+
+Returns the reconstructed optimal path.
+
+- Returns `null` if the goal was unreachable
+
+---
