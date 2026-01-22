@@ -19,6 +19,10 @@ The implemented algorithms guarantee optimal solutions under their respective as
 ```text
 ShortestPathAlgorithms
 ├── README.md
+├── Results/
+│   ├── astar_grid.svg
+│   ├── bfs_graph.svg
+│   └── dijkstra_graph.svg
 ├── docs/
 │   ├── ProjectRequirements.pdf
 │   ├── sciaga.md
