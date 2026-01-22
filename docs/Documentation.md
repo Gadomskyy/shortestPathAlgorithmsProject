@@ -988,3 +988,67 @@ Returns:
 ---
 
 This class focuses purely on visualization and does not implement graph algorithms itself.
+
+# 10. GridVisualizer Class
+
+The `GridVisualizer` class generates SVG visualizations for A8 algorithm executed on a `GridGraph`.
+
+It renders the grid as a matrix of cells, clearly showing obstacles, visited nodes, terrain costs, and the final path.
+
+---
+
+### Class Signature
+
+```
+public class GridVisualizer
+```
+
+### Constants
+```
+private static final int CELL_SIZE = 30;
+```
+
+- Defines the pixel size of a single grid cell
+
+---
+
+## A* Visualization
+
+### AStarToSVG
+```
+public String AStarToSVG(
+    GridGraph grid,
+    AStarResult result,
+    int width,
+    int height
+)
+```
+
+Generates an SVG visualization of an A* search on a grid.
+
+Color legend:
+
+- **Black** – obstacles
+- **Green** – final path
+- **Blue** – visited nodes
+- **White** – unvisited free cells
+
+Features:
+
+- Fixed-size square grid cells
+- Optional display of terrain weights
+- Clear distinction between explored and optimal paths
+
+Parameters:
+
+- `grid` – grid graph definition
+- `result` – result of A* search
+- `width`, `height` – kept for API consistency
+
+Returns:
+
+- SVG markup as a `String`
+
+---
+
+This class is designed for visualization and debugging of grid-based pathfinding algorithms.
