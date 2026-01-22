@@ -141,3 +141,219 @@ Prints the path and total cost.
 Constraints:
 
 - All edge weights must be non-negative.
+
+## 2. Edge Class
+
+Represents a directed edge between two nodes, optionally with a weight.  
+An edge connects a source node (`from`) to a target node (`to`).
+
+---
+
+### Constructors
+
+#### Unweighted constructor
+```
+public Edge(Node from, Node to)
+```
+
+Creates an edge with a default weight of `1.0`.
+
+- `from` – source node
+- `to` – target node
+
+Use this constructor for unweighted graphs.
+
+---
+
+#### Weighted constructor
+```
+public Edge(Node from, Node to, double weight)
+```
+
+Creates an edge with an explicit weight.
+
+- `from` – source node
+- `to` – target node
+- `weight` – edge weight
+
+Use this constructor for weighted graphs.
+
+---
+
+### Accessors
+
+#### getFrom
+```
+public Node getFrom()
+```
+
+Returns the source node of the edge.
+
+---
+
+#### getTo
+```
+public Node getTo()
+```
+
+Returns the target node of the edge.
+
+---
+
+#### getWeight
+```
+public double getWeight()
+```
+
+Returns the weight of the edge.
+
+---
+
+### String Representation
+
+#### toString
+```
+public String toString()
+```
+
+Returns a string representation of the edge in the format:
+
+```
+from -> to (weight)
+```
+
+Example:
+
+```
+A -> B (2.5)
+```
+
+---
+
+### Notes
+
+- Edge direction is from `from` to `to`.
+- Weight is always defined (default is `1.0` for unweighted graphs).
+
+
+## 3. Node class
+
+Represents a vertex in a graph.  
+A node is identified by a unique string `id` and maintains a list of outgoing edges.  
+Optionally, a node can store 2D coordinates for visualization purposes.
+
+---
+
+### Constructors
+
+#### Basic constructor
+```
+public Node(String id)
+```
+
+Creates a node with the given identifier and no initial edges.
+
+- `id` – unique identifier of the node
+
+Initial state:
+- `edges` is an empty list
+- position is `(0.0, 0.0)` by default
+
+---
+
+#### Constructor with position
+```
+public Node(String id, double x, double y)
+```
+
+Creates a node with an identifier and initial coordinates.
+
+- `id` – unique identifier of the node
+- `x` – x-coordinate
+- `y` – y-coordinate
+
+Use this constructor when node layout or visualization is required.
+
+---
+
+### Accessors
+
+#### getId
+```
+public String getId()
+```
+
+Returns the identifier of the node.
+
+---
+
+#### getEdges
+```
+public List<Edge> getEdges()
+```
+
+Returns the list of outgoing edges from this node.
+
+- The returned list is mutable.
+- Modifying it directly affects the node’s adjacency list.
+
+---
+
+#### getX
+```
+public double getX()
+```
+
+Returns the x-coordinate of the node.
+
+---
+
+#### getY
+```
+public double getY()
+```
+
+Returns the y-coordinate of the node.
+
+---
+
+### Mutators
+
+#### addEdge
+```
+public void addEdge(Edge edge)
+```
+
+Adds an outgoing edge to this node.
+
+- `edge` – edge to be added
+
+This method is typically called by `Graph` when building the adjacency list.
+
+---
+
+#### setPosition
+```
+public void setPosition(double x, double y)
+```
+
+Sets the position of the node.
+
+- `x` – new x-coordinate
+- `y` – new y-coordinate
+
+
+---
+
+### String Representation
+
+#### toString
+```
+public String toString()
+```
+
+Returns the string representation of the node.
+
+- By default, returns the node `id`.
+
+
