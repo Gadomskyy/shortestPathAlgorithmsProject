@@ -463,3 +463,97 @@ Returns:
 - Node positions are generated with a fixed margin to avoid clustering near borders.
 - Edge existence is randomized using a 50% probability for each node pair.
 
+# 5. GridNode Class
+
+The `GridNode` class represents a node in a 2D grid using integer Cartesian coordinates.  
+It is designed to be lightweight, immutable, and suitable for use in graph-based algorithms such as grid traversal, pathfinding, and spatial searches.
+
+It supports:
+
+- Immutable storage of `(x, y)` coordinates
+- Coordinate accessors
+- Proper equality comparison for use in collections
+- Safe usage as keys in hash-based data structures
+- Readable string representation
+
+---
+
+### Class Signature
+
+```
+public class GridNode
+```
+
+### Fields
+```
+private final int x;
+private final int y;
+```
+
+- `x` – horizontal coordinate of the node
+- `y` – vertical coordinate of the node
+
+### Constructors
+```
+public GridNode(int x, int y)
+```
+
+Creates a grid node at the specified coordinates.
+
+Parameters:
+
+- `x` – x-coordinate
+- `y` – y-coordinate
+
+### Getters
+
+#### getX
+```
+public int getX()
+```
+Returns the x-coordinate of the node.
+
+#### getY
+```
+public int getY()
+```
+Returns the y-coordinate of the node.
+
+### Equality and Hashing
+
+#### equals
+```
+public boolean equals(Object o)
+```
+
+Determines equality based on coordinate values.
+
+- Two `GridNode` objects are equal if they have the same `x` and `y` values.
+- Enables correct comparison in collections and algorithms.
+
+#### hashCode
+```
+public int hashCode()
+```
+
+Generates a hash code based on the node’s coordinates.
+
+- Ensures consistency with `equals`
+- Allows safe use as keys in `HashMap` and elements in `HashSet`
+
+### String Representation
+
+#### toString
+```
+public String toString()
+```
+
+Returns a readable string representation of the node in the format:
+
+```
+(x,y)
+```
+
+Useful for debugging, logging, and formatted output in pathfinding results.
+
+---
