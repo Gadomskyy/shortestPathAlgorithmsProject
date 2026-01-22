@@ -117,3 +117,120 @@ cd shortestPathAlgorithmsProject
 ```
 Run the Main.java file.
 
+## 7. Algorithms' complexity
+
+### Computational and Memory Complexity of BFS, Dijkstra, and A*
+
+---
+
+## BFS (Breadth-First Search)
+
+### Usage in the project
+- Class: `Graph`
+- Method: `BFSShortestPathWithTrace`
+- Graph representation: adjacency list
+- Graph type: **unweighted**
+
+### Time Complexity
+**O(V + E)**
+
+Where:
+- `V` – number of vertices (nodes)
+- `E` – number of edges
+
+**Explanation:**
+- Each node is visited at most once
+- Each edge is examined at most once
+
+### Space Complexity
+**O(V)**
+
+Includes:
+- BFS queue
+- visited set
+- `previous` map
+- `visitOrder` list
+- reconstructed `path`
+
+---
+
+##  Dijkstra’s Algorithm
+
+### Usage in the project
+- Class: `Graph`
+- Method: `dijkstraShortestPath`
+- Edge weights: **non-negative**
+- Data structure: `PriorityQueue`
+
+### Time Complexity
+**O((V + E) · log V)**
+
+
+### Space Complexity
+**O(V)**
+
+Includes:
+- distance map
+- predecessor map
+- priority queue
+- reconstructed path
+
+---
+
+## A* (A-Star)
+
+### Usage in the project
+- Class: `GridGraph`
+- Methods: `aStar`, `aStarWithTrace`
+- Heuristic: **Manhattan distance**
+- Movement: 4-directional
+- Cost model: cost of entering a cell (`weights[y][x]`)
+
+---
+
+### Time Complexity (worst case)
+**O((V + E) · log V)**  
+→ equivalent to Dijkstra’s algorithm
+
+### Time Complexity (practical – grid-based)
+**O(V log V)**, but:
+- typically **much faster than Dijkstra** due to heuristic-guided exploration
+
+For a grid of size `W × H`:
+- `V = W · H`
+- `E ≤ 4V`
+
+**Worst case:**  
+When the heuristic provides no guidance (`h = 0`), A* behaves like Dijkstra.
+
+**Typical case:**  
+Only a subset of the grid (toward the goal) is explored.
+
+---
+
+### Space Complexity
+**O(V)**
+
+Includes:
+- `openSet` (priority queue)
+- `gScore` map
+- `cameFrom` map
+- `visitedOrder` list
+- reconstructed `path`
+
+---
+
+## Algorithms' Comparison
+
+| Algorithm    | Time Complexity | Space Complexity | Notes |
+|--------------|----------------|------------------|------|
+| **BFS**      | O(V + E) | O(V) | Fastest, unweighted graphs only |
+| **Dijkstra** | O(E log V) | O(V) | Supports weighted graphs |
+| **A-Star**   | O(E log V)\* | O(V) | Fastest in practice with a good heuristic |
+
+\* Often significantly faster in real scenarios.
+
+---
+
+
+
